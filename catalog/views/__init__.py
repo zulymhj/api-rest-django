@@ -1,0 +1,1 @@
+from catalog.views.product_view import ProductView

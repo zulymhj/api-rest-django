@@ -1,0 +1,19 @@
+############## 130.61.140.145 ##############
+# STAGING PROJECT-POSTGRESQL DOCKERFILE. #
+############################################
+
+# PULL POSTGRES-ALPINE OFFICIAL IMAGE.
+FROM postgres:alpine
+
+# UPDATE & UPGRADE THE SYSTEM.
+RUN apk update && apk upgrade && apk del --purge
+
+# Create the apropriate directories.
+RUN mkdir /uploads
+
+# COPY THE INITIALIZER FILE.
+# COPY docker/initializer.sql /docker-entrypoint-initdb.d/
+
+COPY docker/create_db.sh /docker-entrypoint-initdb.d/create_db.sh
+RUN chmod +x /docker-entrypoint-initdb.d/create_db.sh && sed -i -e 's/\r$//' /docker-entrypoint-initdb.d/create_db.sh
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+POSTGRES="psql --username ${POSTGRES_USER}"
+
+echo "Creating database: ${POSTGRES_DB}"
+echo "owner database: ${POSTGRES_USER}"
+
+$POSTGRES <<EOSQL
+DROP DATABASE IF EXISTS  ${POSTGRES_DB};
+CREATE USER ${POSTGRES_USER} WITH ENCRYPTED PASSWORD 'eco_pass';
+CREATE DATABASE ${POSTGRES_DB} OWNER ${POSTGRES_USER};
+EOSQL
+
+echo "database created:  ${POSTGRES_DB} ${POSTGRES_USER}"

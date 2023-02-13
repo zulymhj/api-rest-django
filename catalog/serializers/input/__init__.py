@@ -1,0 +1,1 @@
+from catalog.serializers.input.product_serializer_input import ProductInputSerializer
